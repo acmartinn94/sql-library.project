@@ -2,19 +2,19 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import axios from "axios";
+import dotenv from "dotenv";
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "library",
-  password: "acmn1994",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false } // necesario para conectar con Render
 });
-db.connect();
+db.connect()
+  .then(() => console.log("Connected to database"))
+  .catch(err => console.error("Database connection error:", err));
 const bookswithData = [];   
 
 /*

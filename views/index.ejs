@@ -1,0 +1,78 @@
+<%- include("partials/header.ejs") %>
+<header class="p-3 text-bg-dark">
+     <div class="container"> 
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"> 
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use></svg> 
+                </a> 
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"> 
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li> 
+                </ul>    
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sort by
+                             </button>
+                            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                            <li><a class="dropdown-item" href="/alphabeticalAZ">Alphabetical (A-Z)</a></li>
+                            <li><a class="dropdown-item" href="/alphabeticalZA">Alphabetical (Z-A)</a></li>
+                            <li><a class="dropdown-item" href="/category">Category</a></li>
+                            <li><a class="dropdown-item" href="/rating">Rating</a></li>
+                            </ul>
+                        </div>
+                    
+                 
+                 
+                 
+            </div> 
+        </div> 
+    </header>
+<div class="container py-4">
+<div class="row mb-2"> 
+     <% books.forEach(book => { %>
+    <div class="col-md-6">
+      <div class="book-card row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary-emphasis"><%= book.title %></strong>
+          
+          <h3 class="mb-0">Author</h3>
+          <div class="mb-1 text-body-secondary"><%= book.autor %></div>
+          
+          <h4 class="mb-0">Rating</h4>
+          <div class="mb-1 text-body-secondary star-rating">
+            <% 
+              const fullStars = Math.floor(book.calificacion);
+              const halfStar = book.calificacion % 1 >= 0.5 ? 1 : 0;
+              const emptyStars = 5 - fullStars - halfStar;
+              let stars = '★'.repeat(fullStars);
+              if (halfStar) stars += '⯨';
+              stars += '☆'.repeat(emptyStars);
+            %>
+            <%= stars %>
+          </div>
+          
+          <a href="/description?bookId=<%= book.id %>"  class="icon-link gap-1 icon-link-hover stretched-link">
+            Check more details
+            <svg class="bi" aria-hidden="true">
+              <use xlink:href="#chevron-right"></use>
+            </svg>
+          </a>
+        </div>
+
+        <div class="col-auto d-none d-lg-block">
+          <img src="https://covers.openlibrary.org/b/id/<%= book.cover_id %>-M.jpg"
+               alt="Book cover"
+               width="200"
+               height="250"
+               class="img-fluid">
+        </div>
+
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+
+
+<%- include("partials/footer.ejs") %>

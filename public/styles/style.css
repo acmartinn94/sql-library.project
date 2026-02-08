@@ -1,0 +1,76 @@
+.gradient-background {
+  background: linear-gradient(300deg, #1B3C73, #2F80ED, #A7D8FF);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#title .row {
+  padding-bottom: 0;
+  
+}
+.text-body-emphasis {
+  color: #1B3C73  !important;
+  
+}
+.star-rating {
+  color: gold  !important; /* todas las estrellas doradas */
+  font-size: 20px; /* opcional: tamaño */
+}
+
+/* aniamtion for the book cards */
+
+.book-card {
+  position: relative;
+  border-radius: 14px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+  border: 2px solid transparent;
+  background: #fff !important; /* fondo de la tarjeta */
+}
+
+/* Hover: agranda y activa borde animado */
+.book-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px #0d6efd, 0 0 20px #00c0ff, 0 0 30px #0d6efd !important;
+}
+
+/* Opcional: animación más suave de glow */
+@keyframes border-glow {
+  0% {
+    box-shadow: 0 0 10px #0d6efd, 0 0 20px #00c0ff, 0 0 30px #0d6efd !important;
+  }
+  50% {
+    box-shadow: 0 0 10px #00c0ff, 0 0 20px #0d6efd, 0 0 30px #0d6efd !important;
+  }
+  100% {
+    box-shadow: 0 0 10px #0d6efd, 0 0 20px #00c0ff, 0 0 30px #0d6efd !important;
+  }
+}
+.book-card:hover {
+  animation: border-glow 3s linear infinite;
+}
+
+/* Estrellas doradas */
+.star-rating {
+  color: gold;
+  font-size: 20px;
+}
+.dropdown-menu {
+  background: linear-gradient(300deg, #1B3C73, #2F80ED, #A7D8FF);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite; /* Borde suave */
+  color:#1B3C73
+}

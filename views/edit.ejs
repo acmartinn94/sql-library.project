@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book edit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="p-3 text-bg-dark">
+     <div class="container"> 
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"> 
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use></svg> 
+                </a> 
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"> 
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li> 
+                </ul>    
+                        
+                 
+                 
+            </div> 
+        </div> 
+    </header>
+    <main class="flex-fill d-flex align-items-center">
+    <div class="container py-4">
+    <div class="row g-5"> 
+    <div class="col-md-8"> 
+        
+        <article class="blog-post"> 
+            <h2 class="display-5 link-body-emphasis mb-1"><%=book.title%></h2>
+            <p class="blog-post-meta">Author <%=book.autor%></p> 
+            
+        
+            <h4 class="mb-0">Rating</h4>
+          <div class="mb-1 text-body-secondary star-rating">
+            <% 
+              const fullStars = Math.floor(book.calificacion);
+              const halfStar = book.calificacion % 1 >= 0.5 ? 1 : 0;
+              const emptyStars = 5 - fullStars - halfStar;
+              let stars = '★'.repeat(fullStars);
+              if (halfStar) stars += '⯨';
+              stars += '☆'.repeat(emptyStars);
+            %>
+            <%= stars %>
+          </div>
+            <p><%=description%></p> 
+                <hr>
+        </article>
+        <form method="POST">
+            <% comments.forEach(comments =>{ %>   
+        <div id="commentBox" >
+            <div class="card mt-3 p-3 shadow-sm">
+                
+            
+                 
+                <div class="mb-2">
+                    <label>Name</label>
+                    <input type="text" name="comment[<%=comments.user_id%>][user_name]" value="<%=comments.user_name%>" class="form-control" required>
+                </div>
+
+                <div class="mb-2">
+                    <label>Comment</label>
+                    <textarea name="comment[<%=comments.user_id%>][comment]" class="form-control"  required><%=comments.comment%></textarea>
+                </div>
+
+                <div class="mb-2">
+                    <label>Rating</label>
+                    <input type="number" name="comment[<%=comments.user_id%>][score]" value="<%=comments.score%>" min="1" max="5" step="0.1" class="form-control" required>
+                </div>
+             <input type="hidden" name="comment[<%=comments.user_id%>][user_id]" value="<%= comments.user_id %>">
+             <input type="hidden" name="comment[<%=comments.user_id%>][comment_id]" value="<%= comments.id %>">
+
+                
+                
+
+               
+            
+            </div>
+            </div>
+             <% }) %>
+             <input type="hidden" name="id_book" value="<%= book.id %>">
+            <button type="submit" class="btn btn-primary mt-2" formaction="/edit">Save</button>
+            <button type="submit" class="btn btn-danger mt-2" formaction="/redirect" >Cancel</button>
+             
+        </form>
+     
+     </div> 
+                                             
+    
+    <div class="col-md-4"> 
+        <div class="col-auto d-none d-lg-block">
+          <img src="https://covers.openlibrary.org/b/id/<%= book.cover_id %>-M.jpg"
+               alt="Book cover"
+               width="200"
+               height="250"
+               class="img-fluid">
+        </div>
+    </div>
+    </div>
+</main>
+<script>
+
+
+    
+
+</script>
+
+
+<%- include("partials/footer.ejs") %>
